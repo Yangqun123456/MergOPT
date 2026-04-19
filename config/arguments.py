@@ -26,8 +26,6 @@ def parse_args():
                         help='Learning rate')
     parser.add_argument('--epochs', default=5, type=int,
                         help='Number of training epochs')
-    parser.add_argument('--train-from-base', action='store_true', default=False,
-                        help='Always fine-tune based on the original pre-trained model, and use the base model as reference when computing task vectors')
     parser.add_argument('--optimizer', default='mergopt', type=str,
                         choices=['adam', 'mergopt', 'sgd'],
                         help='Select optimizer type: adam (AdamW optimizer), mergopt (MergOPT optimizer), sgd (SGD optimizer)')

@@ -169,17 +169,8 @@ def run_continual_model_merging(args):
         if os.path.exists(finetune_model_path) and args.continue_experiment:
             print(f"Found existing fine-tuned model: {finetune_model_path}, skipping fine-tuning step")
         else:
-            if i == 0 or args.train_from_base:
-                start_model_path = args.base_model
-                print(f"Using base model for first task: {start_model_path}")
-            else:
-                prev_model_path = os.path.join(result_dir, f"model_after_task_{i}")
-                if os.path.exists(prev_model_path) and os.path.isdir(prev_model_path):
-                    print(f"Using previous task's merged model for task {task_name}: {prev_model_path}")
-                    start_model_path = prev_model_path
-                else:
-                    print(f"Warning: Previous task merged model not found, using base model for task {task_name}")
-                    start_model_path = args.base_model
+            start_model_path = args.base_model
+            print(f"Using base model for fine-tuning task {task_name}")
 
             print(f"Loading dataset {task_name} for fine-tuning...")
             train_dataset = load_local_dataset(task_name, split="train")
@@ -209,7 +200,7 @@ def run_continual_model_merging(args):
                 cache_dir=os.path.join(args.cache_dir, "transformers"),
             )
 
-            if args.task_vector_from_base or args.train_from_base:
+            if args.task_vector_from_base:
                 print("Computing task vector: Fine-tuned model - Original pre-trained model")
                 current_vector_dict = get_task_vector_dict(ft_model, base_model)
             else:
