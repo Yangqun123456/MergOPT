@@ -6,4 +6,4 @@ Model merging aims to integrate multiple independently fine-tuned expert models 
 
 ## Run
 
-- Main workflow: `python continual_model_merging.py`
+- Main workflow: `python model_merging.py`
